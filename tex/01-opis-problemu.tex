@@ -2,7 +2,7 @@
 \label{subsec:polecenie}
 Należy zaprojektować system sterowania manipulatorem o~sześciu stopniach swobody, wyposażony w~chwytak dwustanowy oraz kamerę RGB-D (Kinect). Na taśmociągu poruszają się różnokolorowe sześciany o~wymiarach 4cm~$\pm$~1cm. Zadaniem robota jest pobieranie żółtych sześcianów poruszających się na czarnym taśmociągu i~układanie ich na palecie o~wymiarach 100cm~x~100cm. Sześciany mają być ustawione na~palecie w~konfiguracji 20x20. 
 
-Szybkość ruchu taśmociągu jest stała i~wynosi $\num{0,1}\frac{m}{s}$ - taśmociąg nie jest sterowany przez projektowany system. Pozycja taśmociągu oraz kamery względem podstawy robotaj jest znana (określa je projektant systemu). Sześciany spadają pojedynczo na początek taśmociągu co 40~sekund. Ich położenie początkowe i~orientacja są losowe. Szerokość taśmociągu wynosi $\num{0.3}$ m, a~jego długość $\num{1,2}$ m. System rozpoczyna pracę po otrzymaniu komendy \texttt{START}, a~kończy ją gdy paleta się zapełni. Komendy \texttt{START} wydawane są przez zdalnego agenta, którego definiować nie potrzeba. Wymiana palet jest zadaniem innych urządzeń, które nie są pod kontrolą projektowanego systemu.
+Szybkość ruchu taśmociągu jest stała i~wynosi $\num{0,1}\frac{m}{s}$ - taśmociąg nie jest sterowany przez projektowany system. Pozycja taśmociągu oraz kamery względem podstawy robota jest znana (określa je projektant systemu). Sześciany spadają pojedynczo na początek taśmociągu co 40~sekund. Ich położenie początkowe i~orientacja są losowe. Szerokość taśmociągu wynosi $\num{0.3}$ m, a~jego długość $\num{1,2}$ m. System rozpoczyna pracę po otrzymaniu komendy \texttt{START}, a~kończy ją gdy paleta się zapełni. Komendy \texttt{START} wydawane są przez zdalnego agenta, którego definiować nie potrzeba. Wymiana palet jest zadaniem innych urządzeń, które nie są pod kontrolą projektowanego systemu.
 
 Stosująć formalizm przedstawiony na wykładzie należy:
 \begin{itemize}
@@ -13,7 +13,7 @@ Stosująć formalizm przedstawiony na wykładzie należy:
         \item automat skończony sterujący ich pracą,
         \item zachowania,
         \item warunki początkowe i~końcowe zachowań,
-        \item funkcje przejśca w~postaci matematycznej i~DFD,
+        \item funkcje przejścia w~postaci matematycznej i~DFD,
         \item zawartość pamięci wewnętrznej oraz buforów wejściowych i~wyjściowych,
         \item krok dyskretyzacji dla każdego podsystemu.
     \end{itemize}
