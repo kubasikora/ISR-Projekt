@@ -26,12 +26,12 @@
 
 \urlstyle{same}
 	
-\title{Inteligentne Systemy Robotyczne \\ Zadanie sortowania sześcianów}
+\title{Inteligentne Systemy Robotyczne \\ Zadanie magasześcianów}
 
 \author{
 Jakub Sikora
 \affiliations
-numery albumów: 283418 \\
+numer albumu: 283418 \\
 \emails
 jakub.sikora2.stud@pw.edu.pl
 }
@@ -61,14 +61,11 @@ Receptory:
     \item kamera RGB-D.
 \end{itemize}
 
-
 \todo{Określić liczbę agentów przyporządkowując im efektory i
 receptory (wziąć pod uwagę opóźnienia transmisyjne oraz
 niezbędną moc obliczeniową)}
 
-Z~faktu iż manipulator jest sześciostopniowy, sterowanie nim nie jest trudne (jest zawsze jedno rozwiązanie problemu kinematyki odwrotnej). Podobnie chwytak dwustanowy, jest albo zamykany albo otwierany więc też lajtowe. Największy problem to kamera RGB-D i analizowanie obrazu. Obraz Kinecta jest w niskiej rozdzielczości 640 x 480 pikseli przy 30 klatkach na sekundę. Przy 30 klatkach na sekundę, przedmioty na taśmociągu przesuną się o 3mm pomiędzy klatkami.
-
-kamera stacjonarna zawieszona nad obszarem roboczym (SAC \emph{Stand Alone Camera}) 
+Z~faktu iż manipulator jest sześciostopniowy, sterowanie nim nie jest trudne (jest zawsze jedno rozwiązanie problemu kinematyki odwrotnej). Podobnie chwytak dwustanowy, jest albo zamykany albo otwierany więc też lajtowe. Największy problem to kamera RGB-D i analizowanie obrazu. Obraz Kinecta jest w niskiej rozdzielczości 640 x 480 pikseli przy 30 klatkach na sekundę. Przy 30 klatkach na sekundę, przedmioty na taśmociągu przesuną się o 3mm pomiędzy klatkami. Kamera jest umieszczona nad chwytakiem, podobnie jak w~przykładzie, kamera EIH (\emph{eye in hand}).
 
 \todo{Określić zachowania każdego z agentów}
 
@@ -114,7 +111,6 @@ Receptor wirtualny kamery RGBD (slajdy 120-122):
 Receptor 30 klatek na sekundę daje 33ms.
 
 Efektor czyta wejścia co 1ms natomiast wysyła co 20ms. 
-
 
 \todo{Zbudować automat skończony przełączający zachowania}
 
