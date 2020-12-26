@@ -13,6 +13,13 @@
 \usepackage[utf8]{luainputenc}
 \usepackage[hidelinks]{hyperref}
 \usepackage[utf8]{inputenc}
+
+%%% fix for \lll
+\let\babellll\lll
+\let\lll\relax
+
+\usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{caption}
 \usepackage{indentfirst}
 \usepackage{graphicx}
@@ -26,7 +33,7 @@
 
 \urlstyle{same}
 	
-\title{Inteligentne Systemy Robotyczne \\ Zadanie magasześcianów}
+\title{Inteligentne Systemy Robotyczne \\ Zadanie magazynowania sześcianów}
 
 \author{
 Jakub Sikora
