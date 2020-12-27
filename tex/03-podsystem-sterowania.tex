@@ -8,10 +8,10 @@
     \label{fig:model-cs}
 \end{figure}
 
-Na rysunku~\ref{fig:model-cs} przedstawiono widok podsystemu sterowania w~systemie. W~podsystemie celowo pominięto bufor do nadawania komunikatów do innych agentów, ponieważ zgodnie z~poleceniem, agent nie nadaje żadnych wiadomości do innych agentów. Krok dyskretyzacji podsystemu sterowania jest dostosowany do działania kamery i~wynosi ${}^{c}T = \frac{1}{30}$s.
+Na rysunku~\ref{fig:model-cs} przedstawiono widok podsystemu sterowania w~systemie. Jego rolą w systemie jest nadzorowanie pracy pozostałych podsystemów oraz komunikacja z~innymi agentami. W~podsystemie celowo pominięto bufor do nadawania komunikatów do innych agentów, ponieważ zgodnie z~poleceniem, agent nie nadaje żadnych wiadomości do innych agentów. Krok dyskretyzacji podsystemu sterowania jest dostosowany do działania kamery i~wynosi ${}^{c}T = \frac{1}{30}$s.
 
 \subsubsection{Pamięć wewnętrzna}
-W~pamięci wewnętrznej podsystemu, przechowywane są informacje na temat jego działania.
+W~pamięci wewnętrznej podsystemu przechowywane są informacje na temat jego działania.
 \begin{equation}
     {}^{c}c_{1,1} = [M, i, j, \Theta_{\mathrm{plan}}]
 \end{equation}
