@@ -30,14 +30,16 @@ Do poprawnego działania receptora, wymagana jest implementacja kilku funkcji po
 
 \subsection{Automat sterujący}
 \begin{figure}[ht]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/ISR-vr-camera-behaviours.pdf}
+    \leftskip-3.5em
+    \includegraphics[width=1.3\columnwidth]{figures/ISR-vr-camera-behaviours.pdf}
     \caption{Automat zachowań wirtualnego receptora kamery RGB-D}
     \label{fig:zachowania-vr-camera}
 \end{figure}
 
 
-Na rysunku~\ref{fig:zachowania-vr-camera} przedstawiony został automat sterujący wirtualnym receptorem kamery. Z~każdym z~dwóch stanów $ {}^{r}S_{1,1}^0,  {}^{r}S_{1,1}^1$ skojarzone zostało zachowanie ${}^{r}\mathcal{B}_{1,1,0}$ (\textbf{blocks}) oraz ${}^{r}\mathcal{B}_{1,1,1}$ (\textbf{places}). Każde z~zachowań określa tryb przetwarzania danych z~kamery. Wybór zachowań następuje poprzez wysłanie odpowiedniej wartości na bufor wejściowy.
+Na rysunku~\ref{fig:zachowania-vr-camera} przedstawiony został automat sterujący wirtualnym receptorem kamery. Z~każdym z~dwóch stanów $ {}^{r}S_{1,1}^0,  {}^{r}S_{1,1}^1$ skojarzone zostało zachowanie ${}^{r}\mathcal{B}_{1,1,0}$ (\textbf{blocks}) oraz ${}^{r}\mathcal{B}_{1,1,1}$ (\textbf{places}). Każde z~zachowań określa tryb przetwarzania danych z~kamery. Wybór zachowań następuje poprzez wysłanie odpowiedniej wartości na bufor wejściowy. 
+
+Dla podanego podsystemu, nie ma potrzeby badać warunków rozłączności, ponieważ dla każdego stanu w~automacie, istnieje tylko jeden stan do którego można przejść. Z~racji że dla każdego $i$, ${}^{r}f^{\sigma}_{1,1,j,i} = \neg {}^{r}f^{\sigma}_{1,1,j,i}$, udowadnia to spełnienie warunku kompletność stanów następnych.
 
 \subsection{Zachowanie blocks}
 \label{subsec:vr-camera-blocks}
@@ -49,7 +51,7 @@ Zachowanie ${}^{r}\mathcal{B}_{1,1,0}$ określa tryb wykrywania żółtych sześ
 \end{equation}
 
 \begin{figure}[ht]
-    \centering
+    \leftskip-1.5em
     \includegraphics[width=\columnwidth]{figures/ISR-vr-camera-fp-blocks.pdf}
     \label{fig:vr-camera-fp-blocks}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{blocks} w~postaci DFD}
@@ -75,7 +77,7 @@ Zachowanie ${}^{r}\mathcal{B}_{1,1,1}$ określa tryb wykrywania miejsc na paleci
 \end{equation}
 
 \begin{figure}[ht]
-    \centering
+    \leftskip-1.5em
     \includegraphics[width=\columnwidth]{figures/ISR-vr-camera-fp-places.pdf}
     \label{fig:vr-camera-fp-places}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{places} w~postaci DFD}

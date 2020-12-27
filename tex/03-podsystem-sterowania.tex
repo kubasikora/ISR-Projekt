@@ -77,6 +77,23 @@ Na rysunku~\ref{fig:zachowania-cs} przedstawiony został automat sterujący pods
     \item ${}^{c}\mathcal{B}_{1,1,7}$ - drop.
 \end{itemize}
 
+Dla stanów ${}^{c}S_{1,1}^{3}$ oraz ${}^{c}S_{1,1}^{7}$ należy zbadać rozłączność warunków początkowych stanów następnych tj. $\{ {}^{c}S_{1,1}^{4}, {}^{c}S_{1,1}^{7} \}$ i~$\{ {}^{c}S_{1,1}^{0}, {}^{c}S_{1,1}^{1} \}$. 
+\medskip
+\begin{equation}
+    \begin{gathered}
+        {}^{c}f^{\sigma}_{1,1,7,0} \land {}^{c}f^{\sigma}_{1,1,7,1} = False\\
+        {}^{c}f^{\sigma}_{1,1,7,0} \lor {}^{c}f^{\sigma}_{1,1,7,1} = True \\
+        \\
+        {}^{c}f^{\sigma}_{1,1,3,4} \land {}^{c}f^{\sigma}_{1,1,3,7} = False\\
+        {}^{c}f^{\sigma}_{1,1,3,4} \lor {}^{c}f^{\sigma}_{1,1,3,7} = True \\
+    \end{gathered}
+    \label{eqn:dowod}
+\end{equation}
+\medskip
+
+
+Na podstawie~\ref{eqn:dowod}, stwierdzono rozłączność i~kompletność warunków początkowych stanów ${}^{c}S_{1,1}^{3}$ oraz ${}^{c}S_{1,1}^{7}$. Pozostałe stany mają tylko jeden warunek początkowy, co sprawia że nie ma potrzeby badać rozłączności oraz kompletności.
+
 \subsection{Zachowanie idle}
 \label{subsec:cs-idle}
 

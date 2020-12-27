@@ -21,6 +21,8 @@ Na rysunku~\ref{fig:model-ve-gripper} przedstawiono widok wirtualnego efektora c
 \subsection{Automat sterujący}
 Prostota działania chwytaka implikuje jeden stan normalnej pracy urządzenia, z~którym skojarzone zostało zachowanie ${}^{e}\mathcal{B}_{1,2,0}$ (\textbf{work}). Zachowanie \textbf{work} jest jedynym zachowaniem podsystemu, dlatego nie ma potrzeby rozważania warunków początkowych oraz końcowych. 
 
+Automat sterujący chwytakiem składa się z~tylko jednego stanu, co implikuje że warunek początkowy jest zawsze spełniony, natomiast warunek końcowy nigdy nie jest spełniony. Oznacza to że dla takiego automatu są spełnione warunki kompletności oraz rozłączności warunków stanów następnych.
+
 \subsubsection{Funkcja przejścia}
 \begin{equation}
     \begin{gathered}

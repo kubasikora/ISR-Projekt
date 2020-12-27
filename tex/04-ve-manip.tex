@@ -43,6 +43,8 @@ Do poprawnego działania podsystemu, wymagana jest implementacja kilku funkcji p
 
 Na rysunku~\ref{fig:zachowania-ve-manip} przedstawiony został automat sterujący wirtualnym efektorem manipulatora. Z~każdym z~dwóch stanów $ {}^{e}S_{1,1}^0,  {}^{e}S_{1,1}^1$ skojarzone zostało zachowanie ${}^{e}\mathcal{B}_{1,1,0}$ (\textbf{idle}) oraz ${}^{e}\mathcal{B}_{1,1,1}$ (\textbf{move}). 
 
+Dla podanego podsystemu, nie ma potrzeby badać warunków rozłączności, ponieważ dla każdego stanu w~automacie, istnieje tylko jeden stan do którego można przejść. Z~racji że dla każdego $i$, ${}^{e}f^{\sigma}_{1,1,j,i} = \neg {}^{e}f^{\sigma}_{1,1,j,i}$, udowadnia to spełnienie warunku kompletność stanów następnych.
+
 \subsection{Zachowanie idle}
 \label{subsec:ve-manip-idle}
 
@@ -65,7 +67,7 @@ Zachowanie ${}^{e}\mathcal{B}_{1,1,0}$ (\textbf{idle}) opisuje aktywność manip
 
 \subsubsection{Warunki początkowe}
 \begin{equation}
-    {}^{e}f^{\sigma}_{1,1,1,0} \triangleq \Theta_{\mathrm{zad}} = \Theta
+    {}^{e}f^{\sigma}_{1,1,1,0} \triangleq \Theta_{\mathrm{zad}} \neq \Theta
 \end{equation}
 
 \subsubsection{Warunki końcowe}
@@ -98,12 +100,12 @@ W~momencie przyjścia nowej pozycji zadanej końcówki manipulatora, aktywne sta
 
 \subsubsection{Warunki początkowe}
 \begin{equation}
-    {}^{e}f^{\sigma}_{1,1,0,1} \triangleq \Theta_{\mathrm{zad}} \neq \Theta
+    {}^{e}f^{\sigma}_{1,1,0,1} \triangleq \Theta_{\mathrm{zad}} \Theta
 \end{equation}
 
 \subsubsection{Warunki końcowe}
 \begin{equation}
-    {}^{e}f^{\tau}_{1,1,1} \triangleq \Theta_{\mathrm{zad}} \neq \Theta
+    {}^{e}f^{\tau}_{1,1,1} \triangleq \Theta_{\mathrm{zad}} = \Theta
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
