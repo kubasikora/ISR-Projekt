@@ -57,54 +57,6 @@ jakub.sikora2.stud@pw.edu.pl
 \label{sec:struktura}
 \input{tex/02-struktura-systemu.tex}
 
-\todo{Określić niezbędne efektory oraz receptory} \\
-Efektory: 
-\begin{itemize}
-    \item sześciostopniowy manipulator,
-    \item chwytak dwustanowy.
-\end{itemize}
-
-Receptory:
-\begin{itemize}
-    \item kamera RGB-D.
-\end{itemize}
-
-\todo{Określić liczbę agentów przyporządkowując im efektory i
-receptory (wziąć pod uwagę opóźnienia transmisyjne oraz
-niezbędną moc obliczeniową)}
-
-Z~faktu iż manipulator jest sześciostopniowy, sterowanie nim nie jest trudne (jest zawsze jedno rozwiązanie problemu kinematyki odwrotnej). Podobnie chwytak dwustanowy, jest albo zamykany albo otwierany więc też lajtowe. Największy problem to kamera RGB-D i analizowanie obrazu. Obraz Kinecta jest w niskiej rozdzielczości 640 x 480 pikseli przy 30 klatkach na sekundę. Przy 30 klatkach na sekundę, przedmioty na taśmociągu przesuną się o 3mm pomiędzy klatkami. Kamera jest umieszczona nad chwytakiem, podobnie jak w~przykładzie, kamera EIH (\emph{eye in hand}).
-
-\todo{Określić zachowania każdego z agentów}
-
-Podejrzewam że będą takie zachowania: 
-\begin{itemize}
-    \item idle,
-    \item szukanie sześcianu,
-    \item chwytanie,
-    \item odkładanie.
-\end{itemize}
-
-
-\todo{Zdefiniować receptory i efektory wirtualne (widoki receptorów
-i efektorów oraz bufory komunikacyjne w podsystemie sterowania)}
-
-Slajdy od 141 dalej (wyjebane w kosmos)
-
-Podsystem sterowania (slajdy 125-135): 
-
-\todo{Zdefiniować okres próbkowania dla każdego podsystemu}
-Receptor 30 klatek na sekundę daje 33ms.
-
-Efektor czyta wejścia co 1ms natomiast wysyła co 20ms. 
-
-\todo{Zbudować automat skończony przełączający zachowania}
-
-\todo{Zdefiniować warunki początkowe dla poszczególnych zachowań}
-
-\todo{Zdefiniować funkcje przejścia i warunki końcowe dla każdego
-zachowania}
-
 \section{Podsystem sterowania}
 \label{sec:cs}
 \input{tex/03-podsystem-sterowania.tex}

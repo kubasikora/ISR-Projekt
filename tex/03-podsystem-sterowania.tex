@@ -1,53 +1,66 @@
 \subsection{Struktura podsystemu}
 \label{subsec:cs-struktura}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{figures/ISR-cs-model.pdf}
-    \label{fig:model-cs}
     \caption{Struktura ogólna podsystemu sterowania}
+    \label{fig:model-cs}
 \end{figure}
 
-Bufory komunikacyjne:
+Na rysunku~\ref{fig:model-cs} przedstawiono widok podsystemu sterowania w~systemie. W~podsystemie celowo pominięto bufor do nadawania komunikatów do innych agentów, ponieważ zgodnie z~poleceniem, agent nie nadaje żadnych wiadomości do innych agentów. Krok dyskretyzacji podsystemu sterowania jest dostosowany do działania kamery i~wynosi ${}^{c}T = \frac{1}{30}$s.
+
+\subsubsection{Pamięć wewnętrzna}
+W~pamięci wewnętrznej podsystemu, przechowywane są informacje na temat jego działania.
+\begin{equation}
+    {}^{c}c_{1,1} = [M, i, j, \Theta_{\mathrm{plan}}]
+\end{equation}
+
 \begin{itemize}
-    \item ${}^{c}c_{1,1} = [M, i, j, \Theta_{\mathrm{plan}}]$ - pamięć wewnętrzna \begin{itemize}
-        \item $M$ -- macierz zer i~jedynek rozmiaru 20x20 opisująca zajętość palety,
-        \item $i,j$ -- współrzędne rozważanego miejsca na palecie, numerowane od 1 do 20, 0 oznacza niewyznaczoną pozycję,
-        \item $\Theta_{\mathrm{plan}}$ -- zmienna przechowująca zaplanowaną pozycję chwytu/odłożenia sześcianu.
-    \end{itemize}
-    
-    \item ${}^{T}_{x}c_{2,1} = m \in \{ \emptyset, START \}$ - komunikat od agenta $a_{2}$,
-    
-    \item ${}^{r}_{y}r_{1,1} = \varphi \in \{b, p\}$ - wybór trybu pracy wirtualnego receptora kamery,
-    \item ${}^{r}_{x}r_{1,1} = \Theta_{\mathrm{d}}$ - znaleziona pozycja sześcianu/miejsca w~zależności od wybranego trybu,
-
-    \item ${}^{e}_{y}e_{1,1} = \Theta_{\mathrm{zad}}$ - zadana pozycja ramienia,
-    \item ${}^{e}_{x}e_{1,1} = \Theta$ - aktualna pozycja ramienia,
-
-    \item ${}^{e}_{y}e_{1,2} = \xi_{\mathrm{zad}} \in \{o, c\}$ - zadany stan chwytaka,
-    \item ${}^{e}_{x}e_{1,2} = \xi \in \{o, c\}$ - aktualny stan chwytaka.
+    \item $M$ -- macierz zer i~jedynek rozmiaru 20x20 opisująca zajętość palety,
+    \item $i,j$ -- współrzędne rozważanego miejsca na palecie, numerowane od 1 do 20, 0 oznacza niewyznaczoną pozycję,
+    \item $\Theta_{\mathrm{plan}}$ -- zmienna przechowująca zaplanowaną pozycję chwytu/odłożenia sześcianu.
 \end{itemize}
 
-Stałe:\begin{itemize}
+Oprócz zmiennych, w~pamięci wewnętrznej przechowywane są stałe pozycje, służące do przygotowania systemu do chwytania i~odkładania.
+
+\begin{itemize}
     \item $\Theta_{\mathrm{grip}}$ -- pozycja startowa do chwytu sześcianu, 
     \item $\Theta_{\mathrm{drop}}$ -- pozycja startowa do odkładania sześcianu.
 \end{itemize}
-
-Wymagane funkcje pomocnicze:
+    
+\subsubsection{Bufory komunikacyjne}
+Podsystem komunikuje się z~wirtualnymi efektorami, wirtualnymi receptorami oraz innymi agentami za pomocą następujących buforów komunikacyjnych.
 \begin{itemize}
-    \item $zeros()$ -- stwórz macierz 20x20 wypełnioną zerami,
-    \item $isValid(\Theta)$ -- sprawdza czy $\Theta$ jest poprawną pozycją,
-    \item $makePlan(\Theta, \Theta_{d})$ -- na podstawie aktualnego położenia, wykrytego położenia oraz znanej prędkości taśmociągu, określa położenie w~którym robot złapie sześcian, 
-    \item $findPlace(\Theta_{d}, M)$ --na podstawie położeń wykrytych potencjalnych miejsc oraz znanej zajętości palety, określa położenie w~którym robot odłoży sześcian,
-    \item $isFull(M)$ -- sprawdza czy podana macierz zajętości palety jest wypełniona.
+    \item ${}^{T}_{x}c_{2,1} = m \in \{ \emptyset, START \}$ -- komunikat od agenta $a_{2}$,
+    
+    \item ${}^{r}_{y}r_{1,1} = \varphi \in \{b, p\}$ -- wybór trybu pracy wirtualnego receptora kamery,
+    \item ${}^{r}_{x}r_{1,1} = \Theta_{\mathrm{d}}$ -- znaleziona pozycja sześcianu/miejsca w~zależności od wybranego trybu,
+
+    \item ${}^{e}_{y}e_{1,1} = \Theta_{\mathrm{zad}}$ -- zadana pozycja ramienia,
+    \item ${}^{e}_{x}e_{1,1} = \Theta$ -- aktualna pozycja ramienia,
+
+    \item ${}^{e}_{y}e_{1,2} = \xi_{\mathrm{zad}} \in \{o, c\}$ -- zadany stan chwytaka,
+    \item ${}^{e}_{x}e_{1,2} = \xi \in \{o, c\}$ -- aktualny stan chwytaka.
+\end{itemize}
+
+\subsubsection{Funkcje pomocnicze}
+Do poprawnego działania podsystemu, wymagana jest implementacja kilku funkcji pomocniczych, których konkretna definicja pozostaje poza zakresem projektu.
+
+\begin{itemize}
+    \item \texttt{zeros()} -- stwórz macierz 20x20 wypełnioną zerami,
+    \item \texttt{ $isValid(\Theta)$ } -- sprawdza czy $\Theta$ jest poprawną pozycją znajdującą się w~przestrzeni operacyjnej robota,
+    \item \texttt{makePlan($\Theta, \Theta_{\mathrm{d}}$)} -- na podstawie aktualnego położenia $\Theta$, wykrytego położenia $\Theta_{\mathrm{d}}$ oraz znanej prędkości taśmociągu, określa położenie w~którym robot złapie sześcian, 
+    \item \texttt{findPlace($\Theta_{\mathrm{d}}, M$)} --na podstawie położeń wykrytych potencjalnych miejsc $\Theta_{\mathrm{d}}$ oraz znanej zajętości palety $M$, określa położenie w~którym robot odłoży sześcian,
+    \item \texttt{isFull($M$)} -- sprawdza czy podana macierz zajętości palety jest wypełniona (czy należy zakończyć pracę).
 \end{itemize}
 
 \subsection{Automat sterujący}
 \label{subsec:cs-automat}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/ISR-cs-behaviours.pdf}
+\begin{figure}[ht]
+    \leftskip-5em
+    \includegraphics[ width=1.4\columnwidth]{figures/ISR-cs-behaviours.pdf}
     \caption{Automat zachowań podsystemu sterowania}
     \label{fig:zachowania-cs}
 \end{figure}
@@ -71,11 +84,11 @@ Zachowanie ${}^{c}\mathcal{B}_{1,1,0}$, zwane dalej zachowaniem \textbf{idle}, j
 
 \subsubsection{Funkcja przejścia}
 \begin{equation}
-{}^{c_{1,1}, c_{1,1}}f_{1,1,0} \triangleq {}^{c}c_{1,1} = [zeros(), 0, 0, \emptyset]  
+{}^{c_{1,1}, c_{1,1}}f_{1,1,0} \triangleq {}^{c}c_{1,1} = [\text{\texttt{zeros()}}, 0, 0, \emptyset]  
 \end{equation}
 
-\begin{figure}[H]
-    \centering
+\begin{figure}[ht]
+    \leftskip1.5em
     \includegraphics[width=\columnwidth]{figures/ISR-cs-fp-idle.pdf}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{idle} w~postaci DFD}
     \label{fig:cs-fp-idle}
@@ -83,7 +96,7 @@ Zachowanie ${}^{c}\mathcal{B}_{1,1,0}$, zwane dalej zachowaniem \textbf{idle}, j
 
 \subsubsection{Warunki początkowe}
 \begin{equation}
-    {}^{c}f^{\sigma}_{1,1,7,0} \triangleq \Xi = o \land isFull(M)
+    {}^{c}f^{\sigma}_{1,1,7,0} \triangleq \Xi = o \land \text{\texttt{isFull($M$)}}
 \end{equation}
 
 \subsubsection{Warunki końcowe}
@@ -107,8 +120,8 @@ Rolą zachowania ${}^{c}\mathcal{B}_{1,1,1}$ (\textbf{pre-grip}), jest przygotow
     \end{gathered}
 \end{equation}
     
-\begin{figure}[H]
-    \centering
+\begin{figure}[ht]
+    \leftskip2.5em
     \includegraphics[width=\columnwidth]{figures/ISR-cs-fp-pre-grip.pdf}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{pre-grip} w~postaci DFD}
     \label{fig:cs-fp-pre-grip}
@@ -118,7 +131,7 @@ Rolą zachowania ${}^{c}\mathcal{B}_{1,1,1}$ (\textbf{pre-grip}), jest przygotow
 \begin{equation}
     \begin{gathered}
         {}^{c}f^{\sigma}_{1,1,0,1} \triangleq {}^{T}_{x}c_{2,1} = START\\
-        {}^{c}f^{\sigma}_{1,1,7,1} \triangleq \Xi = o \land \neg isFull(M)
+        {}^{c}f^{\sigma}_{1,1,7,1} \triangleq \Xi = o \land \neg \text{\texttt{isFull($M$)}}
     \end{gathered}
 \end{equation}
 
@@ -139,14 +152,14 @@ W~trakcie stanu aktywności zachowania ${}^{c}\mathcal{B}_{1,1,2}$ (\textbf{dete
       {}^{c_{1,1}, r_{1,1}}f_{1,1,2} \triangleq {}^{r}_{y}c_{1,1} = b\\        
       {}^{c_{1,1}, c_{1,1}}f_{1,1,2} \triangleq \\ \Theta_{\mathrm{plan}} =
                    \begin{cases}
-       			    makePlan(\Theta, \Theta_{\mathrm{d}}), & isValid(\Theta_{\mathrm{d}})\\
+       			    \text{\texttt{makePlan($\Theta, \Theta_{\mathrm{d}}$)}}, & \text{\texttt{isValid($\Theta_{\mathrm{d}}$)}}\\
                        \emptyset, & \text{w p.p.}
        		    \end{cases}
     \end{gathered}
 \end{equation}
 
-\begin{figure}[H]
-    \centering
+\begin{figure}[ht]
+    \leftskip1.5em
     \includegraphics[width=\columnwidth]{figures/ISR-cs-fp-detect-block.pdf}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{detect-block} w~postaci DFD}
     \label{fig:cs-fp-detect-block}
@@ -159,7 +172,7 @@ W~trakcie stanu aktywności zachowania ${}^{c}\mathcal{B}_{1,1,2}$ (\textbf{dete
 
 \subsubsection{Warunki końcowe}
 \begin{equation}
-    {}^{c}f^{\tau}_{1,1,2} \triangleq isValid(\Theta_{\mathrm{d}})
+    {}^{c}f^{\tau}_{1,1,2} \triangleq \text{\texttt{isValid($\Theta_{\mathrm{d}}$)}}
 \end{equation}
 
 
@@ -174,8 +187,8 @@ Zachowanie ${}^{c}\mathcal{B}_{1,1,3}$ (\textbf{do-plan}), realizuje wcześniej 
     {}^{c_{1,1}, e_{1,1}}f_{1,1,3} \triangleq {}^{e}_{y}c_{1,1} = \Theta_{\mathrm{plan}}
 \end{equation}
 
-\begin{figure}[H]
-    \centering
+\begin{figure}[ht]
+    \leftskip1.5em
     \includegraphics[width=\columnwidth]{figures/ISR-cs-fp-do-plan.pdf}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{do-plan} w~postaci DFD}
     \label{fig:cs-fp-do-plan}
@@ -184,8 +197,8 @@ Zachowanie ${}^{c}\mathcal{B}_{1,1,3}$ (\textbf{do-plan}), realizuje wcześniej 
 \subsubsection{Warunki początkowe}
 \begin{equation}
     \begin{gathered}
-        {}^{c}f^{\sigma}_{1,1,2,3} \triangleq isValid(\Theta_{\mathrm{d}}) = True \\
-        {}^{c}f^{\sigma}_{1,1,6,3} \triangleq isValid(\Theta_{\mathrm{d}}) = True        
+        {}^{c}f^{\sigma}_{1,1,2,3} \triangleq \text{\texttt{isValid($\Theta_{\mathrm{d}}$)}} = True \\
+        {}^{c}f^{\sigma}_{1,1,6,3} \triangleq \text{\texttt{isValid($\Theta_{\mathrm{d}}$)}} = True        
     \end{gathered}
 \end{equation}
 
@@ -210,8 +223,8 @@ System oczekuje na moment w~którym klocek znajdzie się w~przewidywanej pozycji
     \end{cases}
 \end{equation}
 
-\begin{figure}[H]
-    \centering
+\begin{figure}[ht]
+    \leftskip1.5em
     \includegraphics[width=\columnwidth]{figures/ISR-cs-fp-grip.pdf}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{grip} w~postaci DFD}
     \label{fig:cs-fp-grip}
@@ -238,8 +251,8 @@ Zachowanie ${}^{c}\mathcal{B}_{1,1,5}$ (\textbf{pre-drop}) jest bliźniaczo podo
     {}^{c_{1,1}, e_{1,1}}f_{1,1,5} \triangleq {}^{e}_{y}c_{1,1} = \Theta_{\mathrm{drop}}
 \end{equation}
 
-\begin{figure}[H]
-    \centering
+\begin{figure}[ht]
+    \leftskip1.5em
     \includegraphics[width=\columnwidth]{figures/ISR-cs-fp-pre-drop.pdf}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{pre-drop} w~postaci DFD}
     \label{fig:cs-fp-pre-drop}
@@ -267,14 +280,14 @@ Zachowanie ${}^{c}\mathcal{B}_{1,1,6}$ (\textbf{detect-place}) jest odpowiedniki
         {}^{c_{1,1}, r_{1,1}}f_{1,1,6} \triangleq {}^{r}_{y}c_{1,1} = p\\
         {}^{c_{1,1}, c_{1,1}}f_{1,1,6} \triangleq \\ [\Theta_{\mathrm{plan}}, i, j] =
             \begin{cases}
-			    findPlace(\Theta, \Theta_{\mathrm{d}}, M), & isValid(\Theta_{\mathrm{d}})\\
+			    \text{\texttt{findPlace($\Theta, \Theta_{\mathrm{d}}, M$)}}, & \text{\texttt{isValid($\Theta_{\mathrm{d}}$)}}\\
                 [\emptyset, 0, 0], & \text{w p.p.}
 		    \end{cases}
     \end{gathered}
 \end{equation}
 
-\begin{figure}[H]
-    \centering
+\begin{figure}[ht]
+    \leftskip1.5em
     \includegraphics[width=\columnwidth]{figures/ISR-cs-fp-detect-place.pdf}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{detect-place} w~postaci DFD}
     \label{fig:cs-fp-detect-place}
@@ -287,7 +300,7 @@ Zachowanie ${}^{c}\mathcal{B}_{1,1,6}$ (\textbf{detect-place}) jest odpowiedniki
 
 \subsubsection{Warunki końcowe}
 \begin{equation}
-    {}^{c}f^{\tau}_{1,1,6} \triangleq isValid(\Theta_{\mathrm{d}})
+    {}^{c}f^{\tau}_{1,1,6} \triangleq \text{\texttt{isValid($\Theta_{\mathrm{d}}$)}}
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -304,8 +317,8 @@ Ostatnim rozważanym zachowaniem w~podsystemie sterowania jest ${}^{c}\mathcal{B
     \end{gathered}
 \end{equation}
 
-\begin{figure}[H]
-    \centering
+\begin{figure}[ht]
+    \leftskip1em
     \includegraphics[width=\columnwidth]{figures/ISR-cs-fp-drop.pdf}
     \caption{Zdekomponowana funkcja przejścia zachowania \textbf{drop} w~postaci DFD}
     \label{fig:cs-fp-drop}
@@ -320,82 +333,3 @@ Ostatnim rozważanym zachowaniem w~podsystemie sterowania jest ${}^{c}\mathcal{B
 \begin{equation}
     {}^{c}f^{\tau}_{1,1,7} \triangleq \Xi = o
 \end{equation}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Warunki początkowe:
-% \begin{itemize}
-%     \item ${}^{c}f^{\sigma}_{1,1,0,1} \triangleq {}^{T}_{x}c_{2,1} = START$,
-%     \item ${}^{c}f^{\sigma}_{1,1,1,2} \triangleq {}^{c}f^{\tau}_{1,1,1} = True$,
-%     \item ${}^{c}f^{\sigma}_{1,1,2,3} \triangleq isValid(\Theta_{\mathrm{d}}) = True$,
-    
-   
-%     \item ${}^{c}f^{\sigma}_{1,1,3,4} \triangleq {}^{c}f^{\tau}_{1,1,3} = True \land \Xi = o$, 
-%     \item ${}^{c}f^{\sigma}_{1,1,3,7} \triangleq {}^{c}f^{\tau}_{1,1,3} = True \land \Xi = c$, 
-
-%     \item ${}^{c}f^{\sigma}_{1,1,4,5} \triangleq \Xi = c$,
-%     \item ${}^{c}f^{\sigma}_{1,1,5,6} \triangleq {}^{c}f^{\tau}_{1,1,5} = True$,
-%     \item ${}^{c}f^{\sigma}_{1,1,6,3} \triangleq isValid(\Theta_{\mathrm{d}}) = True$,
-    
-%     \item ${}^{c}f^{\sigma}_{1,1,7,1} \triangleq \Xi = o \land \neg isFull(M)$ 
-% \end{itemize}
-
-% Warunki końcowe:
-% \begin{itemize}
-%     \item ${}^{c}f^{\tau}_{1,1,0} \triangleq {}^{T}_{x}c_{2,1} = START $,
-%     \item ${}^{c}f^{\tau}_{1,1,1} \triangleq \Theta = \Theta_{\mathrm{grip}}$,
-%     \item ${}^{c}f^{\tau}_{1,1,2} \triangleq isValid(\Theta_{\mathrm{d}})$,
-%     \item ${}^{c}f^{\tau}_{1,1,3} \triangleq \Theta = \Theta_{\mathrm{plan}}$,
-%     \item ${}^{c}f^{\tau}_{1,1,4} \triangleq \Xi = c$,
-%     \item ${}^{c}f^{\tau}_{1,1,5} \triangleq \Theta = \Theta_{\mathrm{drop}}$,
-%     \item ${}^{c}f^{\tau}_{1,1,6} \triangleq isValid(\Theta_{\mathrm{d}})$,
-%     \item ${}^{c}f^{\tau}_{1,1,7} \triangleq \Xi = o$,
-% \end{itemize}
-
-% Funkcje przejścia w postaci matematycznej:
-% \begin{itemize}
-%     \item \textbf{idle} 
-
-%     \item \textbf{pre-grip} \begin{itemize}
-%         \item ${}^{c_{1,1}, e_{1,1}}f_{1,1,1} \triangleq {}^{e}_{y}c_{1,1} = \Theta_{\mathrm{grip}}$,
-%         \item ${}^{c_{1,1}, e_{1,2}}f_{1,1,1} \triangleq {}^{e}_{y}c_{1,2} = o$,
-%     \end{itemize}
-
-%     \item \textbf{detect-block} \begin{itemize}
-%         \item ${}^{c_{1,1}, r_{1,1}}f_{1,1,2} \triangleq {}^{r}_{y}c_{1,1} = b$
-%         \item ${}^{c_{1,1}, c_{1,1}}f_{1,1,2} \triangleq \Theta_{\mathrm{plan}}
-%             \begin{cases}
-% 			    makePlan(\Theta, \Theta_{\mathrm{d}}), & isValid(\Theta_{\mathrm{d}})\\
-%                 \emptyset, & \text{w p.p.}
-% 		    \end{cases}$
-%     \end{itemize}
-    
-%     \item \textbf{do-plan} \begin{itemize}
-%         \item ${}^{c_{1,1}, e_{1,1}}f_{1,1,3} \triangleq {}^{e}_{y}c_{1,1} = \Theta_{\mathrm{plan}}$
-%     \end{itemize}
-
-%     \item \textbf{grip} \begin{itemize}
-%         \item ${}^{c_{1,1}, e_{1,2}}f_{1,1,4} \triangleq {}^{e}_{y}c_{1,2} = \begin{cases}
-%             c, & \Theta_{\mathrm{plan}} = \Theta_{\mathrm{d}}\\
-%             o, & \Theta_{\mathrm{plan}} \neq \Theta_{\mathrm{d}}
-%         \end{cases}$
-%     \end{itemize}
-
-%     \item \textbf{pre-drop} \begin{itemize}
-%         \item ${}^{c_{1,1}, e_{1,1}}f_{1,1,5} \triangleq {}^{e}_{y}c_{1,1} = \Theta_{\mathrm{drop}}$
-%     \end{itemize}
-
-%     \item \textbf{detect-place} \begin{itemize}
-%         \item ${}^{c_{1,1}, r_{1,1}}f_{1,1,6} \triangleq {}^{r}_{y}c_{1,1} = p$
-%         \item ${}^{c_{1,1}, c_{1,1}}f_{1,1,6} \triangleq [\Theta_{\mathrm{plan}}, i, j] =
-%             \begin{cases}
-% 			    findPlace(\Theta, \Theta_{\mathrm{d}}, M), & isValid(\Theta_{\mathrm{d}})\\
-%                 [\emptyset, 0, 0], & \text{w p.p.}
-% 		    \end{cases}$
-%     \end{itemize}
-
-%     \item \textbf{drop} \begin{itemize}
-%         \item ${}^{c_{1,1}, c_{1,1}}f_{1,1,7} \triangleq M[i,j] = 1$,
-%         \item ${}^{c_{1,1}, e_{1,2}}f_{1,1,7} \triangleq {}^{e}_{y}c_{1,2} = o$
-%     \end{itemize}
-% \end{itemize}
